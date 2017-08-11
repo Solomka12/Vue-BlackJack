@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Black Jack</title>
+	<!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="res/css/style.css">
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="../../assets/js/html5shiv.js"></script>
+			<script src="../../assets/js/respond.min.js"></script>
+			<![endif]-->
+
+</head>
+<body>
+	<div class="container">
+		<div class="row" id="app">
+
+
+			<!-- <span class="card">
+				<span class="lable">K</span><span class="some">&#9824;</span>
+			</span>
+			<span class="card">
+				<span class="lable">7</span><span class="some">&#9829;</span>
+			</span> -->
+
+
+
+			<div class="col-xs-3 col-sm-3 col-md-3 history-block">
+				<p>History</p>
+				<!-- <div v-for="stroke in playerHand"> {{ stroke.lable + ' ' + stroke.suit }} </div>
+				<input v-model="chosenNum">
+					<div v-show="chosenNum">{{ getCardValue }}</div>
+				</input> -->
+			</div>
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-9 dealer-area">
+				<div id="dealer-cards">
+					<div class="playing-card" v-bind:class="[card.name, card.suit]" v-for="card in dealerHand"></div>
+				</div>
+			</div>
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-9 control-panel">
+				<div v-show="getDealerPoints" class="dealer-points"><span class="points">{{getDealerPoints}}</span></div>
+				<div v-show="getPlayerPoints" class="player-points"><span class="points">{{getPlayerPoints}}</span></div>
+				<button v-on:click="addCardToPlayer" class="btn">Добавить card</button>
+				<button v-on:click="addCardToDealer" class="btn">Add Card To Dealer</button>
+				<button v-on:click="startNewHand" class="btn">Начать игру</button>
+			</div>
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-9 player-area">
+				<div id="player-cards">
+					<div class="playing-card" v-bind:class="[card.name, card.suit]" v-for="card in playerHand"></div>
+					<!-- <playing-card v-bind:class="[card.name, card.suit]" v-for="card in playerHand" :card="card"></playing-card> -->
+				</div>
+			</div>
+
+
+			<div class="hidden clubs ace"></div>
+			<div class="hidden spades ace"></div>
+			<div class="hidden hearts ace"></div>
+			<div class="hidden diamonds ace"></div>
+		</div>
+	</div>
+	
+
+
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>    
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="https://unpkg.com/vue@2.2.2"></script>
+	<script src="res/js/app.js"></script>
+</body>
+</html>
