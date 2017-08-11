@@ -398,17 +398,18 @@ summary {
 
 /*----------------------------------------*/
 
-#app {
+body {
 	background: linear-gradient(141deg, #1b9bc1, #11bd72, #0d96bf);
-background-size: 600% 600%;
+	background-size: 600% 600%;
 
-animation: AnimationName 20s ease infinite;
+
+	animation: BackgroundChanging 20s ease infinite;
 }
 
-@keyframes AnimationName { 
-	0%{background-position:51% 0%}
+@keyframes BackgroundChanging { 
+	0%{background-position:50% 0%}
 	50%{background-position:50% 100%}
-	100%{background-position:51% 0%}
+	100%{background-position:50% 0%}
 }
 
 .player-area,
@@ -426,9 +427,13 @@ animation: AnimationName 20s ease infinite;
 }
 
 .history-block {
-	background-color: rgba(100,250,130,0.3);
+	background-color: rgba(256,256,256,0.2);
 	padding: 10px;
-	height: 100vh;
+	height: 95vw;
+	max-height: 95vh;
+	margin: 10px 0;
+	border-radius: 10px;
+	box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.2);
 	/*border-right: 3px solid rgba(60,240,80,0.3);*/
 }
 

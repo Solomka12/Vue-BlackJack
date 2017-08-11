@@ -29,15 +29,17 @@ var vm = new Vue({
 
 		suits: ["spades", "clubs", "hearts", "diamonds"],
 
-		playerHand: [],
+		player:{ 
+			hand: [],
+			points: 0,
+		},
 
-		dealerHand: [],
+		dealer: {
+			hand: [],
+			points: 0,
+		}
 
-		dealerPoints: 0,
 
-		playerPoints: 0,
-
-		chosenNum: 0,
 
 	},
 
@@ -47,13 +49,10 @@ var vm = new Vue({
 			return Math.floor(Math.random() * (max - min + 1)) + min;
 		},
 
-		addCardToDealer: function() {
-			this.dealerHand.push(this.addNewCard());
+		addCardTo: function(person) {
+			person.hand.push(this.addNewCard());
 		},
 
-		addCardToPlayer: function() {
-			this.playerHand.push(this.addNewCard());
-		},
 
 		addNewCard: function () {
 			do {
@@ -67,41 +66,74 @@ var vm = new Vue({
 
 		checkCardClones: function(gottenCard) {
 
-			var usedCards = this.playerHand.concat(this.dealerHand);
+			var usedCards = this.player.hand.concat(this.dealer.hand);
 
 			function func(elem){
 				return JSON.stringify(elem) === JSON.stringify(gottenCard);
 			};
 
-			return usedCards.some(func);
+			return usedCards.some(function(elem){
+				return JSON.stringify(elem) === JSON.stringify(gottenCard);
+			});
 		},
 
 		startNewHand: function () {
 			console.log('New game has been started');
-			this.playerHand = [];
-			this.dealerHand = [];
+			this.player.hand = [];
+			this.dealer.hand = [];
 
-			this.addCardToDealer();
-			this.addCardToPlayer();
-			this.addCardToDealer();
-			this.addCardToPlayer();
+			this.addCardTo(this.dealer);
+			this.addCardTo(this.player);
+			this.addCardTo(this.dealer);
+			this.addCardTo(this.player);
 		},
+
+		checkBast: function(person) {
+			if (this.getPoints(person) > 21) {
+				console.log('Overfull!');
+			}
+			return;
+		},
+
+		showPoints: function(person) {
+			person.points = this.getPoints(person);
+		},
+
+		getPoints: function(person) {
+			var ace = 0;
+
+			return person.hand.reduce(function(sum, currentCard) {
+				if(currentCard.name === 'ace') {
+					ace++;
+					if(sum + currentCard.value > 21) {
+						ace--;
+						return sum + currentCard.value - 10;
+					} else { return sum + currentCard.value; }
+				} else if (sum + currentCard.value > 21) {
+					if (ace > 0) {
+						ace--;
+						return sum + currentCard.value - 10;
+					}
+				}
+				return sum + currentCard.value;
+			}, 0);
+		},
+
 
 
 	},
 
 	computed: {
-		getPlayerPoints: function() {
-			return this.playerHand.reduce(function(sum, current) {
-				return sum + current.value;
-			}, 0);
+
+		setPlayerPoints: function() {
+			return this.getPoints(this.player);
+		},
+		
+		setDealerPoints: function() {
+			return this.getPoints(this.dealer);
 		},
 
-		getDealerPoints: function() {
-			return this.dealerHand.reduce(function(sum, current) {
-				return sum + current.value;
-			}, 0);
-		},
+
 	}
 })
 
