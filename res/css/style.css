@@ -401,6 +401,7 @@ summary {
 body {
 	background: linear-gradient(141deg, #1b9bc1, #11bd72, #0d96bf);
 	background-size: 600% 600%;
+	padding: 10px;
 
 
 	animation: BackgroundChanging 20s ease infinite;
@@ -429,8 +430,7 @@ body {
 .history-block {
 	background-color: rgba(256,256,256,0.2);
 	padding: 10px;
-	height: 95vw;
-	max-height: 95vh;
+	height: 100vh;
 	margin: 10px 0;
 	border-radius: 10px;
 	box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.2);
@@ -509,9 +509,9 @@ body {
 	background-position: -808px -576px;
 }
 
-#dealer-cards>div:first-child {
+/*#dealer-cards>div:first-child {
 	transform: scale(1.04);
-}
+}*/
 
 .player-points,
 .dealer-points {

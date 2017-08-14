@@ -68,10 +68,6 @@ var vm = new Vue({
 
 			var usedCards = this.player.hand.concat(this.dealer.hand);
 
-			function func(elem){
-				return JSON.stringify(elem) === JSON.stringify(gottenCard);
-			};
-
 			return usedCards.some(function(elem){
 				return JSON.stringify(elem) === JSON.stringify(gottenCard);
 			});
@@ -92,7 +88,6 @@ var vm = new Vue({
 			if (this.getPoints(person) > 21) {
 				console.log('Overfull!');
 			}
-			return;
 		},
 
 		showPoints: function(person) {
@@ -126,6 +121,12 @@ var vm = new Vue({
 	computed: {
 
 		setPlayerPoints: function() {
+			// if (this.getPoints(this.player) < 21 && this.getPoints(this.player) > this.getPoints(this.dealer)) console.info('You won!');
+			// else if (this.getPoints(this.player) > 21) console.warn('Overfull! You lose...');
+			// else console.warn('You lose(');
+
+			this.player.points = this.getPoints(this.player);
+			//console.log(this.player.points);
 			return this.getPoints(this.player);
 		},
 		

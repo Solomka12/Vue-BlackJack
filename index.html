@@ -42,28 +42,30 @@
 
 
 
-			<div class="col-xs-12 col-sm-12 col-md-9 dealer-area">
-				<div id="dealer-cards">
-					<div class="playing-card" v-bind:class="[card.name, card.suit]" v-for="card in dealer.hand"></div>
+			<div class="playing-field col-xs-12 col-sm-12 col-md-9">
+				<div class="dealer-area">
+					<div id="dealer-cards">
+						<div class="playing-card" v-bind:class="[card.name, card.suit]" v-for="card in dealer.hand"></div>
+					</div>
 				</div>
-			</div>
-
-
-
-			<div class="col-xs-12 col-sm-12 col-md-9 control-panel">
-				<div v-show="setDealerPoints" class="dealer-points"><span class="points">{{setDealerPoints}}</span></div>
-				<div v-show="setPlayerPoints" class="player-points"><span class="points">{{setPlayerPoints}}</span></div>
-				<button v-on:click="addCardTo(player)" class="btn">Take Card</button>
-				<button v-on:click="addCardTo(dealer)" class="btn">Add Card To Dealer</button>
-				<button v-on:click="startNewHand" class="btn">Start New Hand</button>
-			</div>
-
-
-
-			<div class="col-xs-12 col-sm-12 col-md-9 player-area">
-				<div id="player-cards">
-					<div class="playing-card" v-bind:class="[card.name, card.suit]" v-for="card in player.hand"></div>
-					<!-- <playing-card v-bind:class="[card.name, card.suit]" v-for="card in playerHand" :card="card"></playing-card> -->
+				
+				
+				
+				<div class="control-panel col-xs-12 col-sm-12 col-md-9">
+					<div v-show="setDealerPoints" class="dealer-points"><span class="points">{{setDealerPoints}}</span></div>
+					<div v-show="setPlayerPoints" class="player-points"><span class="points">{{player.points}}</span></div>
+					<button v-on:click="addCardTo(player)" class="btn">Take Card</button>
+					<button v-on:click="addCardTo(dealer)" class="btn">Add Card To Dealer</button>
+					<button v-on:click="startNewHand" class="btn">Start New Hand</button>
+				</div>
+				
+				
+				
+				<div class="player-area col-xs-12 col-sm-12 col-md-9">
+					<div id="player-cards">
+						<div class="playing-card" v-bind:class="[card.name, card.suit]" v-for="card in player.hand"></div>
+						<!-- <playing-card v-bind:class="[card.name, card.suit]" v-for="card in playerHand" :card="card"></playing-card> -->
+					</div>
 				</div>
 			</div>
 
