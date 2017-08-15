@@ -398,10 +398,12 @@ summary {
 
 /*----------------------------------------*/
 
+
+
 body {
 	background: linear-gradient(141deg, #1b9bc1, #11bd72, #0d96bf);
 	background-size: 600% 600%;
-	padding: 10px;
+	margin: 0;
 
 
 	animation: BackgroundChanging 20s ease infinite;
@@ -413,27 +415,50 @@ body {
 	100%{background-position:50% 0%}
 }
 
+#app {
+	display: flex;
+	align-content: stretch;
+	align-items: stretch;
+	height: 100vh;
+	padding: 20px;
+}
+
+.playing-field {
+	margin-left: 20px;
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+/*	position: relative;*/
+}
+
 .player-area,
 .dealer-area {
 	/*background-color: #19AF24;*/
-	padding: 50px;
-	height: 45vh;
+	border: 2px solid black;
 	overflow: hidden;
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .control-panel {
 	/*background-color: #19AF24;*/
 	padding: 10px;
-	height: 10vh;
+	display: flex;
+	justify-content: center;
+
 }
 
 .history-block {
+	min-width: 200px;
+	max-width: 300px;
 	background-color: rgba(256,256,256,0.2);
 	padding: 10px;
-	height: 100vh;
-	margin: 10px 0;
 	border-radius: 10px;
 	box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.2);
+	flex: 0 0 20%;
 	/*border-right: 3px solid rgba(60,240,80,0.3);*/
 }
 
@@ -442,7 +467,7 @@ body {
 	background-size: 505% auto;
 	width: 200px;
 	height: 279px;
-	margin-right: 10px;
+	margin: 5px;
 	border: 0px solid black;
 	border-radius: 18px;
 	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.3);
@@ -450,6 +475,45 @@ body {
 	transition-duration: 0.3s;
 	transition-timing-function: ease-out;
 }
+
+.playing-card:first-child {
+	margin-left: -70px !important;
+}
+
+.player-points,
+.dealer-points {
+	min-width: 70px;
+	background: rgba(100, 250, 160, 0.4);;
+	border-radius: 50%;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+	position: relative;
+	z-index: 120;
+	/*left: 30px;*/
+	text-align: center;
+	flex: 0 1 auto;
+}
+
+.player-points {
+	align-self: flex-start;
+	top: 20px;
+}
+
+.dealer-points {
+	align-self: flex-end;
+	top: -20px;
+}
+
+.points {
+	font-size: 5rem;
+
+	color: #eee;
+	text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+.control-panel .btn {
+	margin: 5px;
+}
+
 .playing-card:hover {
 	transform: scale(1.04, 1.04);
 	box-shadow: 0px 8px 3px 0px rgba(0,0,0,0.3);
@@ -512,38 +576,6 @@ body {
 /*#dealer-cards>div:first-child {
 	transform: scale(1.04);
 }*/
-
-.player-points,
-.dealer-points {
-	display: inline-block;
-	width: 80px;
-	height: 80px;
-	background: rgba(100, 250, 160, 0.4);;
-	border-radius: 50%;
-	/*padding: 3px 6px;*/
-	padding-bottom: 85px;
-	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
-	position: absolute;
-	z-index: 120;
-	left: -10px;
-	text-align: center;
-}
-
-.player-points {
-	top: 100%;
-}
-
-.dealer-points {
-	top: -100%;
-}
-
-.points {
-	font-size: 6rem;
-
-	color: #eee;
-	text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
-}
-
 
 /*.card {
 	display: inline-block;

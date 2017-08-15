@@ -6,6 +6,7 @@
 // 		</div>
 // 	`
 // })
+
 var vm = new Vue({
 	el: '#app',
 	data: {
@@ -114,6 +115,15 @@ var vm = new Vue({
 			}, 0);
 		},
 
+		changeCardsMargin: function(person) {
+			var fieldWidth = document.querySelector('div.playing-field').clientWidth;
+			var cards = person.hand.length;
+			var result = fieldWidth - (cards * 210 + 180);
+
+			if (result < 0) return {margin: '0 ' + (result / (cards*2)) + 'px'}
+
+			//console.log('Number of Cards: ' + cards + ', Area Width: ' + fieldWidth + ' ' + result);
+		},
 
 
 	},
@@ -136,8 +146,4 @@ var vm = new Vue({
 
 
 	}
-})
-
-/*<div v-bind:class="getSuit" class="playing-card">
-			<img :src='path.image'>
-		</div>*/
+});
