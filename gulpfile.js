@@ -29,6 +29,7 @@ gulp.task('browserSync', function() {
 	browserSync.init({
 		server: {
 			baseDir: config.src
-		}
+		},
+		tunnel: true,
 	});
 });

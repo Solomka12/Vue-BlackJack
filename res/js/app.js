@@ -34,18 +34,18 @@ var vm = new Vue({
 			hand: [],
 			cash: 1000,
 			points: 0,
-			bet: 10,
+			bet: 50,
+		},
+
+		dealer: {
+			hand: [],
+			points: 0,
 		},
 
 		betMade: false,
 		cantTakeMore: false,
 
-		dealer: {
-			hand: [],
-			points: 0,
-		}
-
-
+		history : [],
 
 	},
 
@@ -56,6 +56,10 @@ var vm = new Vue({
 		},
 
 		addCardTo: function(person) {
+			// var that = this;
+			// setTimeout(function(){
+			// 	console.log(that.addNewCard());
+			// }, 1000)
 			person.hand.push(this.addNewCard());
 		},
 
@@ -104,6 +108,7 @@ var vm = new Vue({
 			else if (points > 21) { 
 				this.cantTakeMore = true;
 				console.warn('Going bust! You Lose...');
+				this.history.unshift(this.wrightToHistory('lose'));
 				setTimeout(this.startNewHand, 2000);
 			}
 		},
@@ -124,16 +129,36 @@ var vm = new Vue({
 			if (this.getPoints(this.dealer) > 21 || this.getPoints(this.player) > this.getPoints(this.dealer)) {
 				this.player.cash += this.player.bet * 2;
 				console.info('You won ' + this.player.bet * 2 + '$');
+				this.history.unshift(this.wrightToHistory('win'));
 			} else if (this.getPoints(this.player) === this.getPoints(this.dealer)) {
 				this.player.cash += +this.player.bet;
 				console.warn('Draw');
+				this.history.unshift(this.wrightToHistory('draw'));
 			} else {
 				console.warn('You Lose...');
+				this.history.unshift(this.wrightToHistory('lose'));
 			}
 			setTimeout(this.startNewHand, 2000);
 		},
 
-			
+		wrightToHistory: function(status) {
+			var that = this;
+			return {
+				cash: this.player.cash + '$',
+				profit: (function() {
+					if (status === 'lose') return '-' + that.player.bet + '$';
+					else if (status === 'win') return '+' + (that.player.bet * 2) + '$';
+					return '+' + that.player.bet + '$'; 
+				})(),
+				status: status,
+				player: {
+					points: this.getPoints(this.player),
+				},
+				dealer: {
+					points: this.getPoints(this.dealer),
+				}
+			};
+		},
 
 
 			// var points = this.getPoints(this.dealer);

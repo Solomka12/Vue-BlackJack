@@ -29,60 +29,82 @@
 
 
 
-			<div class="history-block">
-				<p>History</p>
-				<!-- <div v-for="stroke in playerHand"> {{ stroke.lable + ' ' + stroke.suit }} </div>
-				<input v-model="chosenNum">
-					<div v-show="chosenNum">{{ getCardValue }}</div>
-				</input> -->
-			</div>
+			<div class="history-block user-scrollbar">
+
+				<p class="history-header">History</p>
+				<transition-group name="list-history" tag="div" appear>
+					<div v-for="item in history" class="history-item" v-bind:class="item.status" :key="item">
+
+						<div class="history-main-info">
+							<span class="profit-info">Profit: <strong class="history-profit-amount">{{item.profit}}</strong></span>
+							<span class="total-info">Total: <strong class="history-cash-amount">{{item.cash}}</strong></span>
+							<hr/>
+						</div>
+
+						<!-- <div class="history-player-info"> -->
+						<div class="player-title">Player <strong class="history-points">{{item.player.points}}</strong></div>
+						<!-- <div class="player-hand">
+							<div class="mini-card" v-for="card in item.player.hand">{{card}}</div>
+						</div>
+					</div> -->
+
+					<!-- <div class="history-dealer-info"> -->
+					<div class="history-dealer-info"><strong class="history-points">{{item.dealer.points}}</strong> Dealer</div>
+						<!--<div class="dealer-hand">
+							<div class="mini-card" v-for="card in item.dealer.hand">{{card}}</div>
+						</div>
+					</div> -->
+
+				</div>
+			</transition-group>
+			<div class="force-overflow"></div>
+		</div>
 
 
 
 			<div class="playing-field">
 				<div class="dealer-area">
-					<div v-show="setDealerPoints" class="dealer-points"><span class="points">{{setDealerPoints}}</span></div>
-					<div id="dealer-cards">
-						<div class="playing-card" v-bind:style="changeCardsMargin(dealer)" v-bind:class="[card.name, card.suit]" v-for="card in dealer.hand"></div>
-					</div>
+					<transition name="fade">
+						<div v-show="setDealerPoints" class="dealer-points"><span class="points">{{setDealerPoints}}</span></div>
+					</transition>
+					<transition-group name="card-appear" tag="div" appear id="dealer-cards">
+						<div class="playing-card" v-bind:style="changeCardsMargin(dealer)" v-bind:class="[card.name, card.suit]" v-for="card in dealer.hand" key="card"></div>
+					</transition-group>
 				</div>
 				
 				
 				
 				<div class="control-panel">
 					<template v-if="betMade">
-						<button v-on:click="takeCard" class="btn" v-bind:disabled="cantTakeMore">More</button>
-						<button v-on:click="startDealerPlay" class="btn" v-bind:disabled="cantTakeMore">Enough</button>
+						<button v-on:click="takeCard" class="btn" v-bind:disabled="cantTakeMore"  key="TakeCard">More</button>
+						<button v-on:click="startDealerPlay" class="btn" v-bind:disabled="cantTakeMore" key="Enough">Enough</button>
 					</template>
-					
-
 					<template v-else>
-						<input type="range" min="1" :max="player.cash" v-model="player.bet" id="rangePicker" 
-						step="1">
-						<input v-model.number="player.bet" type="number" name="money" min="1" :max="player.cash" step="1" value="10">
-						<button v-on:click="giveOutCards()" class="btn" >Bet</button>
+						<input type="range" min="1" :max="player.cash" v-model="player.bet" id="rangePicker" step="1" key="range">
+						<input v-model.number="player.bet" type="number" name="money" min="1" :max="player.cash" step="1" value="10" key="bet">
+						<button v-on:click="giveOutCards()" class="btn" v-bind:disabled="player.bet < 1 || player.bet > player.cash" key="startHand">Bet</button>
 					</template>
-					
-					<div class="player-cash">{{ player.cash + '$'}}</div>
+					<div class="player-cash"  key="playerCash">{{ player.cash + '$'}}</div>
 					<!-- <button v-on:click="addCardTo(dealer)" class="btn" >Add Card To Dealer</button> -->
 				</div>
 				
 				
 				
 				<div class="player-area">
-					<div v-show="setPlayerPoints" class="player-points"><span class="points">{{player.points}}</span></div>
-					<div id="player-cards">
-						<div class="playing-card" v-bind:style="changeCardsMargin(player)" v-bind:class="[card.name, card.suit]" v-for="card in player.hand"></div>
+					<transition name="fade">
+						<div v-show="setPlayerPoints" class="player-points"><span class="points">{{player.points}}</span></div>
+					</transition>
+					<transition-group name="card-appear" tag="div" appear id="player-cards">
+						<div class="playing-card" v-bind:style="changeCardsMargin(player)" v-bind:class="[card.name, card.suit]" v-for="card in player.hand" :key="card"></div>
 						<!-- <playing-card v-bind:class="[card.name, card.suit]" v-for="card in playerHand" :card="card"></playing-card> -->
-					</div>
+					</transition-group>
 				</div>
-			</div>
 
 
-			<div class="hidden clubs ace"></div>
-			<div class="hidden spades ace"></div>
-			<div class="hidden hearts ace"></div>
-			<div class="hidden diamonds ace"></div>
+<!-- 			<div class="clubs ace"></div>
+			<div class="spades ace"></div>
+			<div class="hearts ace"></div>
+			<div class="diamonds ace"></div> -->
 		</div>
 	</div>
 	
