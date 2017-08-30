@@ -532,7 +532,7 @@ hr {
 	display: inline-block;
 	background-size: 505% auto;
 	width: 200px;
-	height: 279px;
+	height: 278px;
 	margin: 5px;
 	border: 0px solid black;
 	border-radius: 18px;
@@ -847,11 +847,17 @@ input[type='number'] {
 	.playing-card {
 		transform: scale(0.8);
 	}
+	.playing-card:hover {
+		transform: scale(0.85, 0.85);
+	}
 }
 
 @media (max-height: 700px) {
 	.playing-card {
 		transform: scale(0.65);
+	}
+	.playing-card:hover {
+		transform: scale(0.7, 0.7);
 	}
 }
 
@@ -859,6 +865,11 @@ input[type='number'] {
 	.playing-card {
 		transform: scale(0.4);
 	}
+
+	.playing-card:hover {
+		transform: scale(0.45, 0.45);
+	}
+
 	.btn {
 		font-size: 14px;
 		padding: 5px;
