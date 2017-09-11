@@ -257,6 +257,14 @@
 				return sum + currentCard.value;
 			}, 0);
 		},
+
+		fetchLocalStorage: function() {
+			return JSON.parse(localStorage.getItem('blackjack-game') || '[]');
+		},
+
+		saveToLocalStorage: function(data) {
+			localStorage.setItem('blackjack-game', JSON.stringify(data))
+		}
 	},
 
 // directives: {
@@ -269,7 +277,7 @@
 
 // 			if (result < 0) return {margin: '0 ' + (result / (cards*2)) + 'px'}
 // 		}
-// 	},
+//	},
 // },
 
 	computed: {
@@ -285,10 +293,6 @@
 	},
 
 	watch: {
-		// watchCashAmount: function(val) {
-		// 	console.log('cash: ' + val)
-		// 	if( val < 1 && !this.betMade ) confirm('You run out of money. Try again?') ? this.player.cash = 1000 : alert('This is the end...');
-		// },
 
 		player: {
 			handler: function (val) {
