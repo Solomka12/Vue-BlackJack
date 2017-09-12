@@ -6,7 +6,13 @@
 				<div v-show="dealerPoints" class="dealer-points"><span class="points">{{ dealerPoints }}</span></div>
 			</transition>
 			<transition-group name="card-appear" tag="div" appear id="dealer-cards">
-				<div class="playing-card" v-bind:class="[card.name, card.suit]" v-for="(card, index) in dealer.hand" key="index"></div>
+				<div 
+					class="playing-card" 
+					:class="[card.name, card.suit]" 
+					v-for="(card, index) in dealer.hand" 
+					:style="{margin: cardsMargin}"
+					key="index">
+				</div>
 			</transition-group>
 		</div>
 
@@ -14,8 +20,8 @@
 
 		<div class="control-panel">
 			<template v-if="betMade">
-				<button v-on:click="takeCard" class="btn" v-bind:disabled="cantTakeMore"  key="TakeCard">More</button>
-				<button v-on:click="startDealerPlay" class="btn" v-bind:disabled="cantTakeMore" key="Enough">Enough</button>
+				<button v-on:click="takeCard" class="btn" :disabled="cantTakeMore"  key="TakeCard">More</button>
+				<button v-on:click="startDealerPlay" class="btn" :disabled="cantTakeMore" key="Enough">Enough</button>
 			</template>
 			<template v-else>
 				<input 
@@ -35,11 +41,11 @@
 					step="1" 
 					value="10" 
 					key="bet" 
-					v-bind:disabled="!player.cash">
+					:disabled="!player.cash">
 				<button 
 					v-on:click="giveOutCards()" 
 					class="btn" 
-					v-bind:disabled="player.bet < 1 || player.bet > player.cash" 
+					:disabled="player.bet < 1 || player.bet > player.cash" 
 					key="startHand"
 					>Bet
 				</button>
@@ -55,7 +61,13 @@
 				<div v-show="playerPoints" class="player-points"><span class="points">{{ playerPoints }}</span></div>
 			</transition>
 			<transition-group name="card-appear" tag="div" appear id="player-cards">
-				<div class="playing-card" v-bind:class="[card.name, card.suit]" v-for="(card, index) in player.hand" key="index"></div>
+				<div 
+					class="playing-card" 
+					:class="[card.name, card.suit]" 
+					v-for="(card, index) in player.hand"
+					:style="{margin: cardsMargin}"
+					key="index">
+				</div>
 				<!-- <playing-card v-bind:class="[card.name, card.suit]" v-for="card in playerHand" :card="card"></playing-card> -->
 			</transition-group>
 		</div>
@@ -100,7 +112,6 @@
 				points: 0,
 			},
 
-			playerName: '',
 			betMade: false,
 			cantTakeMore: false,
 
@@ -259,12 +270,43 @@
 		},
 
 		fetchLocalStorage: function() {
-			return JSON.parse(localStorage.getItem('blackjack-game') || '[]');
+			var locStor = JSON.parse(localStorage.getItem('blackjack-game') || 'false');
+			var that = this;
+			if ( locStor ) {
+				this.$modal.show('dialog', {
+					title: 'Unfinished game',
+					text: 'You played before.',
+					buttons: [ 
+						{ title: 'Continue',
+							handler: function() {
+								that.player.cash = locStor.cash; 
+								that.$modal.hide('dialog')
+							} 
+						},
+						{ title: 'New Game' }
+					]
+				})
+			}
+			// this.playerName = prompt('Enter your name: ');
 		},
 
 		saveToLocalStorage: function(data) {
 			localStorage.setItem('blackjack-game', JSON.stringify(data))
-		}
+		},
+
+		createNewPlayer: function() {
+			this.$modal.show('hello');
+		},
+
+		// changeCardsMargin: function(person) {
+		// 	var fieldWidth = window.innerWidth;
+		// 	var cards = person.hand.length;
+		// 	var result = fieldWidth - (cards * 210 + 180);
+
+		// 	if (result < 0) return '0 ' + (result / (cards*2)) + 'px';
+
+		// 	//console.log('Number of Cards: ' + cards + ', Area Width: ' + fieldWidth + ' ' + result);
+		// },
 	},
 
 // directives: {
@@ -290,21 +332,48 @@
 			return this.getPoints(this.dealer)
 		},
 
+		cardsMargin: function() {
+			var fieldWidth = window.innerWidth;
+			var cards =  this.player.hand.length < this.dealer.hand.length ? this.dealer.hand.length : this.player.hand.length;
+			var result = fieldWidth - (cards * 210 + 180);
+
+			if (result < 0) return '0 ' + (result / (cards*2)) + 'px';
+		}
+
 	},
 
 	watch: {
 
 		player: {
 			handler: function (val) {
-				if( val.cash < 1 && !this.betMade ) confirm('You run out of money. Try again?') ? val.cash = 1000 : alert('This is the end...');
+				var that = this;
+				this.saveToLocalStorage({
+					cash: val.cash,
+				});
+				if( val.cash < 1 && !this.betMade ) {
+					this.$modal.show('dialog', {
+						title: 'You run out of money!',
+						text: 'Try again?',
+						buttons: [ 
+							{ title: 'Yes',
+								handler: function() {
+									val.cash = 1000; 
+									that.$modal.hide('dialog')
+								} 
+							},
+							{ title: 'No' }
+						]
+					})
+				} 
 			},
 			deep: true
 		},
 	},
 
-	created: function() {
-		this.playerName = prompt('Enter your name: ');
-		console.log('Hi, ' + this.playerName);
+	mounted: function() {
+		this.fetchLocalStorage();
+		// console.log('Hi, ' + this.playerName);
+		
 	}
 
 }

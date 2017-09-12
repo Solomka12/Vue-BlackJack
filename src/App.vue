@@ -3,6 +3,11 @@
 <!-- 		<side-nav>
 			<div>First Text</div>
 		</side-nav> -->
+<!-- 		<modal name="dialog">
+			Enter your name
+		</modal> -->
+		<v-dialog name="dialog" adaptive="true" clickToClose="false" draggable="true" />
+
 		<notifications group="note-place" position="bottom center" classes="notes-style"/>
 		<playing-field></playing-field>
 
@@ -486,6 +491,10 @@ input[type='number'] {
 
 /*------------------------------------------------*/
 
+.v--modal-overlay {
+  background: rgba(0,0,0,.7);
+}
+
 @media (max-width: 700px) {
 	.history-block {
 		display: none;
@@ -498,12 +507,12 @@ input[type='number'] {
 		margin-left: 0;
 	}
 
-	.playing-card {
+/*	.playing-card {
 		transform: scale(0.8);
 	}
 	.playing-card:hover {
 		transform: scale(0.85, 0.85);
-	}
+	}*/
 }
 
 @media (max-height: 700px) {
