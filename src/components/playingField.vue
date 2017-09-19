@@ -65,7 +65,7 @@
 			:data="historyCash || []"
 			:gradient="['rgba(0,0,0,0)', 'rgba(40,40,40,0.4)']"
 			auto-draw
-			:padding="1"
+			:padding="5"
 			smooth>
 		</trend>
 			<transition-group name="card-appear" tag="div" appear id="player-cards">
@@ -478,9 +478,9 @@
 
 .player-points,
 .dealer-points {
-	min-width: 70px;
-	min-height: 70px;
-	padding: 4px;
+	min-width: 60px;
+	min-height: 60px;
+	padding: 8px;
 	background: rgba(36, 218, 126, 0.7);
 	border-radius: 50%;
 	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
@@ -503,7 +503,7 @@
 }*/
 
 .points {
-	font-size: 3.3rem;
+	font-size: 3.2rem;
 	color: #eee;
 	text-shadow: 1px 1px 8px rgba(0, 0, 0, 1);
 }
@@ -515,65 +515,6 @@
 
 .control-panel .btn {
 	margin: 0 10px;
-}
-
-/*.playing-card:hover {
-	transform: scale(1.04, 1.04);
-	box-shadow: 0px 8px 3px 0px rgba(0,0,0,0.3);
-}*/
-.diamonds {
-	background-image: url('../assets/diamonds.png');
-}
-.clubs {
-	background-image: url('../assets/clubs.png');
-}
-.hearts {
-	background-image: url('../assets/hearts.png');
-}
-.spades {
-	background-image: url('../assets/spades.png');
-}
-.ace{
-	background-position: 0 0;
-}
-.two{
-	background-position: -202px 0;
-}
-.three{
-	background-position: -404px 0;
-}
-.four{
-	background-position: -606px 0;
-}
-.five{
-	background-position: -808px 0;
-}
-.six{
-	background-position: 0 -288px;
-}
-.seven{
-	background-position: -202px -288px;
-}
-.eight{
-	background-position: -404px -288px;
-}
-.nine{
-	background-position: -606px -288px;
-}
-.ten{
-	background-position: -808px -288px;
-}
-.jack{
-	background-position: 0 -576px;
-}
-.queen{
-	background-position: -202px -576px;
-}
-.king{
-	background-position: -404px -576px;
-}
-.empty{
-	background-position: -808px -576px;
 }
 
 /*--------------Стилизация ползунка---------------*/

@@ -5,7 +5,7 @@
 			<div v-for="item in history" class="history-item" v-bind:class="item.status" :key="JSON.stringify(item)">
 				
 				<div class="history-main-info">
-					<span class="profit-info">Profit: <strong class="history-profit-amount">{{item.profit}}</strong></span>
+					<span class="profit-info">Gain: <strong class="history-profit-amount">{{item.profit}}</strong></span>
 					<span class="total-info">Total: <strong class="history-cash-amount">{{item.cash}}</strong></span>
 					<hr/>
 				</div>
@@ -17,7 +17,7 @@
 			</div>
 		</transition-group>
 		
-		<div class="open-button" @click="isOpened = !isOpened" :class="{ 'open-button-active': isOpened }">Slide</div>
+		<div class="open-button" @click="isOpened = !isOpened" :class="{ 'open-button-active': isOpened }">{{ isOpened ? '&#10060;' : '&#9776;' }}</div>
 	</div>
 </template>
 
@@ -52,11 +52,13 @@
 .open-button {
 	position: fixed;
 	top: 8px;
-	left: 81%;
-	background-color: rgba(0, 0, 0, 0.3);
-	/*border-radius: 0 40% 40% 0;*/
-	padding: 15px 5px;
+	left: 84%;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 50%;
+	padding: 5px 11px 8px;
 	cursor: pointer;
+	font-size: 1.4em;
+
 /*	border: 2px solid rgba(50,234,140,0.6);
 	border-left: 0;*/
 }
