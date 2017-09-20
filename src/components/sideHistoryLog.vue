@@ -58,9 +58,11 @@
 	padding: 5px 11px 8px;
 	cursor: pointer;
 	font-size: 1.4em;
+	color: #eee;
+}
 
-/*	border: 2px solid rgba(50,234,140,0.6);
-	border-left: 0;*/
+.open-button:hover {
+	box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
 }
 
 .side-log {
